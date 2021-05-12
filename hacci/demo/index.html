@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" href="../hacci.min.js"></script>
+    </head>
+    <body>
+        <h3>Hacci demo</h3>
+        <div id="app">
+            <input hc:ref="radio_light" hc:input="onRadio" type="radio" name="radio" value="light">
+            <input hc:ref="radio_dark" hc:input="onRadio" type="radio" name="radio" value="dark">
+            <button hc:click="onRadioCheck('light', event)">light check</button>
+            <button hc:click="onRadioCheck('dark')">dark check</button>
+            <div hc:ref="resRadio"></div>
+            <hr />
+            <input hc:ref="check_light" hc:input="onCheckbox" type="checkbox" name="check" value="light">
+            <input hc:ref="check_dark" hc:checked="true" hc:input="onCheckbox" type="checkbox" name="check" value="dark">
+            <button hc:click="onCheckboxToggle('light')">light toggle</button>
+            <button hc:click="onCheckboxToggle('dark')">dark toggle</button>
+            <div hc:ref="resCheckbox"></div>
+            <hr />
+            <select hc:ref="select" hc:value="sel" hc:input="onSelect">
+                <option value="first">first</option>
+                <option value="second">second</option>
+                <option value="third">third</option>
+            </select>
+            <button hc:click="onSelectChange('first')">first select</button>
+            <button hc:click="onSelectChange('second')">second select</button>
+            <button hc:click="onSelectChange('third')">third select</button>
+            <div hc:ref="resSelect"></div>
+            <hr />
+            <input hc:ref="text" hc:value="input" hc:input="onText" type="text" value="" />
+            <button hc:click="onTextClear()">clear</button>
+            <div hc:ref="resText"></div>
+            <hr />
+            <textarea hc:ref="textarea" hc:value="textarea" hc:input="onTextarea"></textarea>
+            <button hc:click="onTextareaClear()">clear</button>
+            <div hc:ref="resTextarea"></div>
+            <hr />
+            <button hc:click="onDestroy()">Destroy</button>
+            <div hc:ref="resButton"></div>
+            <hr />
+            <p hc:ref="resButton" hc:text="initial_text"></p>
+            <p hc:ref="label" hc:html="initial_html"></p>
+        </div>
+        <script tyle="text/javascript">
+            function init() {
+                var call = function(val) {
+                    console.log('call - val:' + val);
+                };
+                window.hc = new Hacci({
+                    el: document.querySelector('#app'),
+                    // template: '',
+                    data: {
+                        input: 'initial input string',
+                        textarea: 'initial textarea string',
+                        sel: 'second',
+                        initial_text: 'initial text',
+                        initial_html: '<p style="color: red; font-weight: bold;">initial html</p>',
+                        callback: call,
+                    },
+                    method: {
+                        onRadio: function(event) {
+                            this.refs.resRadio.innerText = 'onRadio - value:' + event.target.value + ' / checked:' + event.target.checked;
+                        },
+                        onRadioCheck: function(theme, event = null) {
+                            this.refs['radio_' + theme].checked = true;
+                        },
+                        onCheckbox: function(event) {
+                            this.refs.resCheckbox.innerText = 'onCheckbox - value:' + event.target.value + ' / checked:' + event.target.checked;
+                        },
+                        onCheckboxToggle: function(theme) {
+                            this.refs['check_' + theme].checked = !this.refs['check_' + theme].checked;
+                        },
+                        onSelect: function(event) {
+                            this.refs.resSelect.innerText = 'onSelect - value:' + event.target.value;
+                        },
+                        onSelectChange: function(value) {
+                            this.refs.select.value = value;
+                        },
+                        onText: function(event) {
+                            this.refs.resText.innerText = 'onText - value:' + event.target.value;
+                        },
+                        onTextClear: function(event) {
+                            this.refs.text.value = '';
+                            this.callback('text cleared!');
+                        },
+                        onTextarea: function(event) {
+                            this.refs.resTextarea.innerText = 'onTextarea - value:' + event.target.value;
+                        },
+                        onTextareaClear: function() {
+                            this.refs.textarea.value = '';
+                            this.callback('textarea cleared!');
+                        },
+                        onDestroy: (event) => {
+                            window.hc.destroy();
+                        },
+                    },
+                    created: function() { console.log('created'); },
+                    mounted: function() { console.log('mounted'); },
+                    destroyed: function() { console.log('destroyed'); },
+                }).mount();
+            }
+            // });
+            setTimeout(init, 100);
+        </script>
+    </body>
+</html>

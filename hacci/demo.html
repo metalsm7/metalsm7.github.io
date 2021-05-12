@@ -62,7 +62,7 @@
                         onRadio: function(event) {
                             this.refs.resRadio.innerText = 'onRadio - value:' + event.target.value + ' / checked:' + event.target.checked;
                         },
-                        onRadioCheck: function(theme, event = null) {
+                        onRadioCheck: function(theme, event) {
                             this.refs['radio_' + theme].checked = true;
                         },
                         onCheckbox: function(event) {
@@ -91,7 +91,7 @@
                             this.refs.textarea.value = '';
                             this.callback('textarea cleared!');
                         },
-                        onDestroy: (event) => {
+                        onDestroy: function(event) {
                             window.hc.destroy();
                         },
                     },

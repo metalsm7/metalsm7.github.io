@@ -15,10 +15,10 @@
     </style>
     </head>
     <body>
-        <h1>Demo</h1>
+        <h1>Hacci Demo</h1>
         <hr />
 
-        <h2>Model</h4>
+        <h2>Model</h2>
 
         <div>
             <div id="app_model_radio_ex1">
@@ -229,26 +229,19 @@ new Hacci({
                     },
                     method: {
                         onChange: function() {
-                            console.log('onChange.#1');
                             this.refs.label.innerText = ' / model val is ' + JSON.stringify(this.val);
-                            console.log('onChange.#2');
                         },
                         clearColor: function() {
                             this.val = [];
                         },
                         toggleColor: function(color) {
-                            console.log('toggleColor.#1');
                             var idx = this.val.indexOf(color);
-                            console.log('toggleColor.#2 - idx:' + idx);
                             if (idx > -1) {
-                                console.log('toggleColor.#3.1 - splice');
                                 this.val.splice(idx, 1);
                             }
                             else {
-                                console.log('toggleColor.#3.1 - push');
                                 this.val.push(color);
                             }
-                            console.log('toggleColor:' + color + ' / val:' + JSON.stringify(this.val));
                         }
                     },
                     mounted: function() {
@@ -551,7 +544,7 @@ new Hacci({
 &lt;/script&gt;
             </code></pre>
             <script type="text/javascript">
-                window.hc2 = new Hacci({
+                new Hacci({
                     el: document.querySelector('#app_event_change_ex1'),
                     data: {
                         val: 'green',
@@ -641,18 +634,13 @@ new Hacci({
                             this.val = [];
                         },
                         toggleColor: function(color) {
-                            console.log('toggleColor.#1');
                             var idx = this.val.indexOf(color);
-                            console.log('toggleColor.#2 - idx:' + idx);
                             if (idx > -1) {
-                                console.log('toggleColor.#3.1 - splice');
                                 this.val.splice(idx, 1);
                             }
                             else {
-                                console.log('toggleColor.#3.1 - push');
                                 this.val.push(color);
                             }
-                            console.log('toggleColor:' + color + ' / val:' + JSON.stringify(this.val));
                         }
                     },
                     mounted: function() {
@@ -823,6 +811,57 @@ new Hacci({
                         setVisible: function(val) {
                             this.visible = val;
                         },
+                    }
+                }).mount();
+            </script>
+        </div>
+
+        <h2>Text/Html</h2>
+
+        <div>
+            <div id="app_texthtml_ex1">
+                <h3>Text/Html</h4>
+                <div class="example">
+                    <input hc:model="val" type="text">
+                    <br />
+                    TEXT: <label hc:text="val"></label>
+                    <br />
+                    HTML: <label hc:html="val"></label>
+                    <br />
+                    <button hc:click="setText('Hello, World!')">text set to 'Hello, World!'</button>
+                </div>
+            </div>
+            <pre><code hc:ref="code" class="language-html">
+&lt;div id="app_texthtml_ex1"&gt;
+    &lt;h3&gt;Text/Html&lt;/h4&gt;
+    &lt;div class="example"&gt;
+        &lt;input hc:model="val" type="text"&gt;
+        &lt;br /&gt;
+        TEXT: &lt;label hc:text="val"&gt;&lt;/label&gt;
+        &lt;br /&gt;
+        HTML: &lt;label hc:html="val"&gt;&lt;/label&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+new Hacci({
+    el: document.querySelector('#app_texthtml_ex1'),
+    data: {
+        val: 'All work and no play makes jack a dull boy!'
+    }
+}).mount();
+&lt;/script&gt;
+            </code></pre>
+            <script type="text/javascript">
+            new Hacci({
+                    el: document.querySelector('#app_texthtml_ex1'),
+                    data: {
+                        val: 'All work and no play makes jack a dull boy!'
+                    },
+                    method: {
+                        setText: function(text) {
+                            this.val = text;
+                        }
                     }
                 }).mount();
             </script>

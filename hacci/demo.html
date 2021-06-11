@@ -1054,5 +1054,73 @@ new Hacci({
             }).mount();
             </script>
         </div>
+        
+        <div>
+            <div id="app_template_ex1">
+                <h3>Template</h4>
+                <div class="example">
+                    <div class="pop_cnt">
+                        Enter code ({{code.length}}/4)
+                        <div class="bg_al_success1">
+                            <input hc:model="code" hc:input="onInput" type="text">
+                        </div>
+                        <div hc:if="result_visible">
+                            <p class="cmt">'{{code}}'</p>
+                            code is {{result ? 'correct' : 'incorrect'}}!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <pre><code hc:ref="code" class="language-html">
+&lt;div id="app_template_ex1"&gt;
+    &lt;h3&gt;Template&lt;/h4&gt;
+    &lt;div class="example"&gt;
+        &lt;div class="pop_cnt"&gt;
+            Enter code ({{code.length}}/4)
+            &lt;div class="bg_al_success1"&gt;
+                &lt;input hc:model="code" hc:input="onInput" type="text"&gt;
+            &lt;/div&gt;
+            &lt;div hc:if="result_visible"&gt;
+                &lt;p class="cmt"&gt;'{{code}}'&lt;/p&gt;
+                code is {{result ? 'correct' : 'incorrect'}}!
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script type="text/javascript"&gt;
+window.hc = new Hacci({
+    el: document.querySelector('#app_template_ex1'),
+    data: {
+        code: '',
+        result_visible: false,
+        result: false
+    },
+    method: {
+        onInput: function(_evt) {
+            this.result_visible = this.code.length &gt; 0;
+            this.result = this.code === '1234';
+        }
+    }
+}).mount();
+&lt;/script&gt;
+            </code></pre>
+            <script type="text/javascript">
+            window.hc = new Hacci({
+                el: document.querySelector('#app_template_ex1'),
+                data: {
+                    code: '',
+                    result_visible: false,
+                    result: false
+                },
+                method: {
+                    onInput: function(_evt) {
+                        this.result_visible = this.code.length > 0;
+                        this.result = this.code === '1234';
+                    }
+                }
+            }).mount();
+            </script>
+        </div>
     </body>
 </html>
